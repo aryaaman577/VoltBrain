@@ -1,0 +1,24 @@
+{
+    "Dataset Rows": 2492,
+    "Dataset Columns": 11,
+    "Best Model": "Gradient Boosting Regressor (Tuned)",
+    "Best Parameters": {
+        "subsample": 1.0,
+        "n_estimators": 200,
+        "max_depth": 3,
+        "learning_rate": 0.1
+    },
+    "Cross Validation Mean": 0.9748,
+    "Cross Validation Std": 0.0019,
+    "Training Time": 3.5605,
+    "Prediction Time": 0.0062,
+    "MAE": 9.6952,
+    "RMSE": 12.0524,
+    "R2": 0.9751,
+    "Median Absolute Error": 8.7235,
+    "Explained Variance Score": 0.9755,
+    "MAPE": 0.0286,
+    "Python Version": "3.14.5",
+    "Scikit-Learn Version": "1.9.0",
+    "Training Date": "2026-08-07 07:36:04"
+}
