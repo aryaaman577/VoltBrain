@@ -1,3 +1,15 @@
+---
+title: VoltBrain AI EV Range Prediction Engine
+emoji: ⚡
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.38.0
+app_file: app.py
+pinned: false
+license: mit
+---
+
 # VoltBrain — Electric Vehicle Range Prediction Engine
 
 VoltBrain is a machine learning application designed to estimate real-world electric vehicle (EV) driving range based on physical battery and vehicle specifications. It uses an ensemble Random Forest Regressor pipeline to provide reliable estimates beyond standard WLTP/EPA laboratory benchmarks.
