@@ -31,6 +31,50 @@ except Exception:
     st.error("⚠️ Error: Could not load model or dataset files. Please check the 'models' and 'data' directories.")
     st.stop()
 
+@st.cache_data(show_spinner=False)
+def generate_scatter_chart(_dataset):
+    mapping = {'Battery_Capacity_kWh': 'Battery Capacity (kWh)', 'Range_Km': 'Range (km)'}
+    tdf = _dataset.rename(columns=mapping)
+    fig = px.scatter(
+        tdf, 
+        x='Battery Capacity (kWh)', 
+        y='Range (km)', 
+        color='Brand' if 'Brand' in tdf.columns else None,
+        hover_data=tdf.columns
+    )
+    fig.update_layout(
+        plot_bgcolor='white', paper_bgcolor='white',
+        font=dict(color='black'),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        margin=dict(l=10, r=10, t=10, b=10)
+    )
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
+    return fig
+
+@st.cache_data(show_spinner=False)
+def generate_histogram_chart(_dataset):
+    mapping = {'Battery_Capacity_kWh': 'Battery Capacity (kWh)', 'Range_Km': 'Range (km)'}
+    tdf = _dataset.rename(columns=mapping)
+    fig = px.histogram(
+        tdf, 
+        x='Range (km)', 
+        nbins=24, 
+        color_discrete_sequence=['#000000'],
+        marginal='box', 
+        opacity=0.85
+    )
+    fig.update_traces(marker_line_color='#FFFFFF', marker_line_width=1.5)
+    fig.update_layout(
+        plot_bgcolor='white', paper_bgcolor='white',
+        font=dict(color='black'),
+        bargap=0.05,
+        margin=dict(l=10, r=10, t=10, b=10)
+    )
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
+    return fig
+
 # --- SIDEBAR ---
 st.sidebar.title("⚡ VoltBrain")
 st.sidebar.markdown("**Electric Vehicle Range Prediction**")
@@ -173,47 +217,15 @@ elif page == "Analytics":
     with tab1:
         st.subheader("Battery vs Range Correlation")
         with st.container(border=True):
-            if 'Battery Capacity (kWh)' in tdf.columns and 'Range (km)' in tdf.columns:
-                fig1 = px.scatter(
-                    tdf, 
-                    x='Battery Capacity (kWh)', 
-                    y='Range (km)', 
-                    color='Brand' if 'Brand' in tdf.columns else None,
-                    hover_data=tdf.columns
-                )
-                fig1.update_layout(
-                    plot_bgcolor='white', paper_bgcolor='white',
-                    font=dict(color='black'),
-                    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-                )
-                fig1.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                fig1.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                st.plotly_chart(fig1, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False})
-            
+            fig1 = generate_scatter_chart(df)
+            st.plotly_chart(fig1, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False, 'responsive': True}, on_select="ignore", key="scatter_chart")
             st.info("💡 **Observation:** We observe a strong positive linear correlation between battery capacity and range, though efficiency variations between brands cause some spread.")
             
     with tab2:
         st.subheader("Range Frequency Distribution")
         with st.container(border=True):
-            if 'Range (km)' in tdf.columns:
-                fig2 = px.histogram(
-                    tdf, 
-                    x='Range (km)', 
-                    nbins=24, 
-                    color_discrete_sequence=['#000000'],
-                    marginal='box', 
-                    opacity=0.85
-                )
-                fig2.update_traces(marker_line_color='#FFFFFF', marker_line_width=1.5)
-                fig2.update_layout(
-                    plot_bgcolor='white', paper_bgcolor='white',
-                    font=dict(color='black'),
-                    bargap=0.05
-                )
-                fig2.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                fig2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                st.plotly_chart(fig2, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False})
-            
+            fig2 = generate_histogram_chart(df)
+            st.plotly_chart(fig2, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False, 'responsive': True}, on_select="ignore", key="histogram_chart")
             st.info("💡 **Observation:** The majority of modern EVs cluster around the 350-450 km range mark, with a right-skewed tail representing premium long-range models.")
 
 # --- PAGE: DATASET ---
