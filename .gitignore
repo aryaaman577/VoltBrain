@@ -39,3 +39,4 @@ dist/
 
 # Model Binary Artifacts
 models/*.pkl
+!models/voltbrain_pipeline.pkl
