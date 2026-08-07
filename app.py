@@ -188,7 +188,7 @@ elif page == "Analytics":
                 )
                 fig1.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
                 fig1.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                st.plotly_chart(fig1, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False}, theme=None)
+                st.plotly_chart(fig1, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False})
             
             st.info("💡 **Observation:** We observe a strong positive linear correlation between battery capacity and range, though efficiency variations between brands cause some spread.")
             
@@ -212,7 +212,7 @@ elif page == "Analytics":
                 )
                 fig2.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
                 fig2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#E5E5E5', zeroline=False)
-                st.plotly_chart(fig2, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False}, theme=None)
+                st.plotly_chart(fig2, use_container_width=True, config={'scrollZoom': True, 'displayModeBar': False})
             
             st.info("💡 **Observation:** The majority of modern EVs cluster around the 350-450 km range mark, with a right-skewed tail representing premium long-range models.")
 
