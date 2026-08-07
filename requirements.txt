@@ -1,8 +1,8 @@
-# VoltBrain Production Pinned Dependencies
-pandas==2.2.2
-numpy==1.26.4
-matplotlib==3.8.4
-scikit-learn==1.4.2
-joblib==1.4.2
-streamlit==1.38.0
-plotly==5.24.1
+# VoltBrain Production Dependencies
+pandas>=2.2.0
+numpy>=2.0.0
+matplotlib>=3.8.0
+scikit-learn>=1.4.2
+joblib>=1.4.0
+streamlit>=1.38.0
+plotly>=5.24.1
